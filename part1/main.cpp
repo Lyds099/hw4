@@ -48,8 +48,8 @@ int main() {
 }
 
 void parkCar(Arguments *in, Reply *out){
-   double x = in->getArg<double>();
-   double y = in->getArg<double>();
+   double d1 = in->getArg<double>();
+   double d2 = in->getArg<double>();
    const char *dire = in->getArg<const char*>();
 
    //d2
