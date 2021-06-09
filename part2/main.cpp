@@ -29,7 +29,7 @@ int main() {
                ThisThread::sleep_for(400ms);
                car.stop();
             }else if(recv[0]=='o'){
-               car.goStraight(50);
+               car.goStraight(-50);
             }else{
                car.stop();
             }                                                                                                               
