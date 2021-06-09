@@ -47,9 +47,9 @@ void parkCar(Arguments *in, Reply *out){
    ThisThread::sleep_for(1000ms);
 
    if (strcmp(dire, "west") == 0) {
-      car.turn(100, -0.2);
+      car.turn(-100, -0.2);
    }else if (strcmp(dire, "east") == 0) {
-      car.turn(100, 0.2);
+      car.turn(-100, 0.2);
    }
    ThisThread::sleep_for(700ms);
    car.stop();
