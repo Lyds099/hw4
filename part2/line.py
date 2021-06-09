@@ -24,7 +24,7 @@ while(True):
    if(abs(theta_err)>30):
       if(theta_err<0):
          print("l")
-      else if(theta_err>0):
+      elif(theta_err>0):
          print("r")
    else:
       print("o")
