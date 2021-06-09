@@ -10,7 +10,7 @@ BufferedSerial uart(D1,D0); //tx,rx
 
 BBCar car(pin5, pin6, servo_ticker);
 
-void follow_line(char* buf);
+void follow_line(char* dire);
 Thread followL_Thread(osPriorityLow);
 
 int main() {
@@ -26,7 +26,7 @@ int main() {
    }
 }
 
-void follow_line(char* buf){
+void follow_line(char* dire){
    if((strcmp(dire, "l") == 0){
       car.stop();
       car.turn(100, 0.2);
