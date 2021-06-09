@@ -15,7 +15,7 @@ volatile int steps;
 volatile int last;
 
 void parkCar(Arguments *in, Reply *out);
-RPCFunction rpcPark(&parkCar, "park_car");
+RPCFunction rpcPark(&parkCar, "parkCar");
 
 void encoder_control() {
    int value = encoder;
@@ -24,11 +24,6 @@ void encoder_control() {
 }
 
 int main() {
-   pc.set_baud(9600);
-   encoder_ticker.attach(&encoder_control, 10ms);
-   steps = 0;
-   last = 0;
-
    char buf[256], outbuf[256];
    FILE *devin = fdopen(&xbee, "r");
    FILE *devout = fdopen(&xbee, "w");
@@ -42,12 +37,14 @@ int main() {
          }
          buf[i] = fputc(recv, devout);
       }
+   printf("%s\n", buf);
    RPC::call(buf, outbuf);
    printf("%s\r\n", outbuf);
    }
 }
 
 void parkCar(Arguments *in, Reply *out){
+   encoder_ticker.attach(&encoder_control, 10ms);
    double d1 = in->getArg<double>();
    double d2 = in->getArg<double>();
    const char *dire = in->getArg<const char*>();
