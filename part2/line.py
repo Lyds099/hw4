@@ -23,9 +23,9 @@ while(True):
    img.draw_line(line.line(), color = 127)
    if(abs(theta_err)>30):
       if(theta_err<0):
-         print("l")
+         uart.write("l")
       elif(theta_err>0):
-         print("r")
+         uart.write("r")
    else:
-      print("o")
+      uart.write("o")
 
