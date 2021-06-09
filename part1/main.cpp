@@ -45,15 +45,15 @@ int main() {
 
 void parkCar(Arguments *in, Reply *out){
    encoder_ticker.attach(&encoder_control, 10ms);
-   double d1 = in->getArg<double>();
-   double d2 = in->getArg<double>();
+   int d1 = in->getArg<int>();
+   int d2 = in->getArg<int>();
    const char *dire = in->getArg<const char*>();
 
    //d2
    steps = 0;
    last = 0;
    car.goStraight(-50);
-   while(steps*6.5*3.14/32 < (int)d2) { ThisThread::sleep_for(20ms); }
+   while(steps*6.5*3.14/32 < d2) { ThisThread::sleep_for(20ms); }
    car.stop();
    ThisThread::sleep_for(500ms);
 
@@ -70,7 +70,7 @@ void parkCar(Arguments *in, Reply *out){
    steps = 0;
    last = 0;
    car.goStraight(-50);
-   while(steps*6.5*3.14/32 < (int)d1) { ThisThread::sleep_for(20ms); }
+   while(steps*6.5*3.14/32 < d1) { ThisThread::sleep_for(20ms); }
    car.stop();
    ThisThread::sleep_for(500ms);
 }
