@@ -33,3 +33,19 @@ int main() {
       }
    }
 }
+
+void follow_line(char* buf){
+   if((strcmp(dire, "left") == 0){
+      car.stop();
+      car.turn(100, 0.2);
+      ThisThread::sleep_for(200ms);
+      car.stop();
+   }else if((strcmp(dire, "right") == 0){
+      car.stop();
+      car.turn(100, -0.2);
+      ThisThread::sleep_for(200ms);
+      car.stop();
+   }else if((strcmp(dire, "ok") == 0){
+      car.goStraight(50);
+   }
+}
