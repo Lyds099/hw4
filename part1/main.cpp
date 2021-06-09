@@ -10,18 +10,9 @@ BufferedSerial xbee(D1, D0);
 
 BBCar car(pin5, pin6, servo_ticker);
 
-DigitalIn encoder(D11);
-volatile int steps;
-volatile int last;
-
 void parkCar(Arguments *in, Reply *out);
 RPCFunction rpcPark(&parkCar, "parkCar");
-
-void encoder_control() {
-   int value = encoder;
-   if (!last && value) steps++;
-   last = value;
-}
+int car_run;
 
 int main() {
    char buf[256], outbuf[256];
@@ -44,33 +35,30 @@ int main() {
 }
 
 void parkCar(Arguments *in, Reply *out){
-   encoder_ticker.attach(&encoder_control, 10ms);
    int d1 = in->getArg<int>();
    int d2 = in->getArg<int>();
    const char *dire = in->getArg<const char*>();
 
    //d2
-   steps = 0;
-   last = 0;
+   car_run = 0;
    car.goStraight(-50);
-   while(steps*6.5*3.14/32 < d2) { ThisThread::sleep_for(20ms); }
+   while(car_run < d2) { ThisThread::sleep_for(200ms); car_run++; }
    car.stop();
-   ThisThread::sleep_for(500ms);
+   ThisThread::sleep_for(1000ms);
 
    if (strcmp(dire, "west") == 0) {
-      car.turn(100, -0.3);
+      car.turn(100, -0.2);
    }else if (strcmp(dire, "east") == 0) {
-      car.turn(100, 0.3);
+      car.turn(100, 0.2);
    }
    ThisThread::sleep_for(700ms);
    car.stop();
-   ThisThread::sleep_for(500ms);
+   ThisThread::sleep_for(1000ms);
 
    //d1
-   steps = 0;
-   last = 0;
+   car_run = 0;
    car.goStraight(-50);
-   while(steps*6.5*3.14/32 < d1) { ThisThread::sleep_for(20ms); }
+   while(car_run < d1) { ThisThread::sleep_for(200ms); car_run++; }
    car.stop();
-   ThisThread::sleep_for(500ms);
+   ThisThread::sleep_for(1000ms);
 }
