@@ -12,7 +12,6 @@ BBCar car(pin5, pin6, servo_ticker);
 
 void follow_line(char* buf);
 Thread followL_Thread(osPriorityLow);
-char buf[64];
 
 int main() {
    uart.set_baud(9600);
@@ -21,31 +20,24 @@ int main() {
       if(uart.readable()){
             char recv[1];
             uart.read(recv, sizeof(recv));
-            pc.write(recv, sizeof(recv));
-            if(recv[0] == '\n') {
-               followL_Thread.start(&follow_line(buf));
-               memset(buf,'0',sizeof(buf));
-               buf_index = 0;
-            }
-            else{
-               buf[buf_index++] = recv[0];
-            }
+            //pc.write(recv, sizeof(recv));
+            followL_Thread.start(&follow_line(recv));
       }
    }
 }
 
 void follow_line(char* buf){
-   if((strcmp(dire, "left") == 0){
+   if((strcmp(dire, "l") == 0){
       car.stop();
       car.turn(100, 0.2);
       ThisThread::sleep_for(200ms);
       car.stop();
-   }else if((strcmp(dire, "right") == 0){
+   }else if((strcmp(dire, "r") == 0){
       car.stop();
       car.turn(100, -0.2);
       ThisThread::sleep_for(200ms);
       car.stop();
-   }else if((strcmp(dire, "ok") == 0){
+   }else if((strcmp(dire, "o") == 0){
       car.goStraight(50);
    }else{
       car.stop();
