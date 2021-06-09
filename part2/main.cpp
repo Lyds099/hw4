@@ -20,12 +20,12 @@ int main() {
             //pc.write(recv, sizeof(recv));
             if(recv[0]=='l'){
                car.stop();
-               car.turn(100, 0.2);
+               car.turn(-100, 0.2);
                ThisThread::sleep_for(400ms);
                car.stop();
             }else if(recv[0]=='r'){
                car.stop();
-               car.turn(100, -0.2);
+               car.turn(-100, -0.2);
                ThisThread::sleep_for(400ms);
                car.stop();
             }else if(recv[0]=='o'){
