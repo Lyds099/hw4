@@ -47,5 +47,7 @@ void follow_line(char* buf){
       car.stop();
    }else if((strcmp(dire, "ok") == 0){
       car.goStraight(50);
+   }else{
+      car.stop();
    }
 }
