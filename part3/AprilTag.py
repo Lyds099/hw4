@@ -25,13 +25,13 @@ while(True):
       img.draw_rectangle(tag.rect(), color = (255, 0, 0))
       img.draw_cross(tag.cx(), tag.cy(), color = (0, 255, 0))
       angle = degrees(tag.z_rotation())
-      if(angle<0):
-          angle = angle + 360
-      if(abs(angle)>30):
-         if(angle<0):
-            uart.write("l")
-         elif(angle>0):
-            uart.write("r")
-       else:
-            uart.write("o")
+      found = 1
+      if ((angle <= 360 and angle >= 355) or (angle >= 0 and angle <= 5)):
+          uart.write("o")
+      elif (angle <= 90 and angle >= 5):
+          uart.write("l")
+      elif (angle <= 355 and angle >= 270):
+          uart.write("r")
+      if (found==0):
+          uart.write("n")
 
