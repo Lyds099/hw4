@@ -31,6 +31,6 @@ while(True):
           uart.write("l")
       elif (angle <= 355 and angle >= 270):
           uart.write("r")
-      if (found==0):
-          uart.write("n")
+   if (found==0):
+      uart.write("n")
 
