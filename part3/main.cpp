@@ -2,7 +2,8 @@
 #include "bbcar.h"
 #include "bbcar_rpc.h"
 #include "string.h"
-DigitalInOut pin12(D12);
+DigitalInOut ping(D12);
+Timer t;
 
 Ticker servo_ticker;
 PwmOut pin5(D5), pin6(D6);
@@ -14,10 +15,10 @@ BBCar car(pin5, pin6, servo_ticker);
 int angle;
 
 int main() {
-   parallax_ping  ping(pin12);
    pc.set_baud(9600);
    uart.set_baud(9600);
    int buf_index = 0;
+   char buf[20];
    while(1){
       if(uart.readable()){                                                       
             char recv[1];
@@ -39,8 +40,21 @@ int main() {
                car.stop();
             }else{
                car.stop();
-            }                                                                                                               
-            pc.write("ping:%f\n", (float)ping);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+            }
+            ping.output();
+            ping = 0; wait_us(200);
+            ping = 1; wait_us(5);
+            ping = 0; wait_us(5);
+            ping.input();
+            while(ping.read() == 0);
+            t.start();
+            while(ping.read() == 1);
+            val = t.read();
+            sprintf(buf, "Ping = %lf\r\n", val*17700.4f);
+            pc.write(buf, sizeof(buf));
+            t.stop();
+            t.reset();                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
       }
    }
 }
