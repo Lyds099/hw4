@@ -34,7 +34,9 @@ int main() {
                ThisThread::sleep_for(400ms);
                car.stop();
             }else if(recv[0]=='o'){
-               car.goStraight(-50);
+               car.goStraight(-100);
+               ThisThread::sleep_for(1000ms);
+               car.stop();
             }else{
                car.stop();
             }                                                                                                               
