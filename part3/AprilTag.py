@@ -17,6 +17,7 @@ def degrees(radians):
 
 uart = pyb.UART(3,9600,timeout_char=1000)
 uart.init(9600,bits=8,parity = None, stop=1, timeout_char=1000)
+found = 0
 
 while(True):
    img = sensor.snapshot()
