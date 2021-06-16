@@ -19,7 +19,6 @@ uart = pyb.UART(3,9600,timeout_char=1000)
 uart.init(9600,bits=8,parity = None, stop=1, timeout_char=1000)
 
 while(True):
-   clock.tick()
    img = sensor.snapshot()
    for tag in img.find_apriltags(fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
       img.draw_rectangle(tag.rect(), color = (255, 0, 0))
@@ -32,6 +31,6 @@ while(True):
           uart.write("l")
       elif (angle <= 355 and angle >= 270):
           uart.write("r")
-   if (found==0):
+      if (found==0):
           uart.write("n")
 
