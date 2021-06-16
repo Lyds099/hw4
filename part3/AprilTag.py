@@ -23,7 +23,7 @@ while(True):
    for tag in img.find_apriltags(fx=f_x, fy=f_y, cx=c_x, cy=c_y): # defaults to TAG36H11
       img.draw_rectangle(tag.rect(), color = (255, 0, 0))
       img.draw_cross(tag.cx(), tag.cy(), color = (0, 255, 0))
-      angle = degrees(tag.z_rotation())
+      angle = degrees(tag.y_rotation())
       if ((angle <= 360 and angle >= 355) or (angle >= 0 and angle <= 5)):
           uart.write("o")
       elif (angle <= 90 and angle >= 5):
