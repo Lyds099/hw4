@@ -1,5 +1,5 @@
 1.how to setup and run your program  
-Part1
+Part1  
 &emsp;&emsp;(1)Clone the repo: $ git clone https://github.com/Lyds099/hw4.git  
 &emsp;&emsp;(2) $ cd part1  
 &emsp;&emsp;(3)Compile the program: $ sudo mbed compile --source . --source ~/ee2405/mbed-os-build/ -m B_L4S5I_IOT01A -t GCC_ARM -f  
