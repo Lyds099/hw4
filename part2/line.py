@@ -20,12 +20,16 @@ while(True):
            theta_err = line.theta()-180
        else:
            theta_err = line.theta()
-   img.draw_line(line.line(), color = 127)
-   if(abs(theta_err)>30):
-      if(theta_err<0):
-         uart.write("l")
-      elif(theta_err>0):
-         uart.write("r")
-   else:
-      uart.write("o")
+       img.draw_line(line.line(), color = 127)
+       if(abs(theta_err)>30):
+          if(theta_err<0):
+             uart.write("/turn/run -50 0.2 \n".encode())
+          elif(theta_err>0):
+             uart.write("/turn/run -50 -0.2 \n".encode())
+       else:
+          uart.write("/goStraight/run -50 \n".encode())
+       uart.write(("#x1:%d\r\n" % line.x1()).encode())
+       uart.write(("#x2:%d\r\n" % line.x2()).encode())
+       uart.write(("#y1:%d\r\n" % line.y1()).encode())
+       uart.write(("#y2:%d\r\n" % line.y2()).encode())
 
