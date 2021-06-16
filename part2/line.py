@@ -11,8 +11,8 @@ sensor.set_auto_whitebal(False)  # must turn this off to prevent image washout..
 uart = pyb.UART(3,9600,timeout_char=1000)
 uart.init(9600,bits=8,parity = None, stop=1, timeout_char=1000)
 
-find = 0
 while(True):
+   find = 0
    img = sensor.snapshot()
    if enable_lens_corr: img.lens_corr(1.8) # for 2.8mm lens...
    for line in img.find_line_segments(merge_distance = 200, max_theta_diff = 200):
