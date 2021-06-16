@@ -8,5 +8,5 @@ Part1
 &emsp;&emsp;(6)Typy RPC command in Xbee host: parkCar/run d1 d2 east/west  
 &emsp;&emsp;(7)The car will start reverse parking.  
 
-2.what are the results
+2.what are the results  
 Part1
