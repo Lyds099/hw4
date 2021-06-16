@@ -21,7 +21,7 @@ Part3
 &emsp;&emsp;(4)Open openMV and execute AprilTag.py  
 &emsp;&emsp;(5)Aim the camera at Apriltag  
 &emsp;&emsp;(6)The car will turn left/right or go stright according to the position of Apriltag.  
-&emsp;&emsp;(7)Print the distance measured by PING on screen.
+&emsp;&emsp;(7)Print the distance measured by PING on screen.  
 2.what are the results  
 Part1  
 &emsp;&emsp;demo video:  
