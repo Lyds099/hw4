@@ -12,28 +12,21 @@ BBCar car(pin5, pin6, servo_ticker);
 
 int main() {
    uart.set_baud(9600);
-   int buf_index = 0;
-   while(1){
-      if(uart.readable()){                                                       
-            char recv[1];
-            uart.read(recv, sizeof(recv));                              
-            //pc.write(recv, sizeof(recv));
-            if(recv[0]=='l'){
-               car.stop();
-               car.turn(-100, 0.2);
-               ThisThread::sleep_for(400ms);
-               car.stop();
-            }else if(recv[0]=='r'){
-               car.stop();
-               car.turn(-100, -0.2);
-               ThisThread::sleep_for(400ms);
-               car.stop();
-            }else if(recv[0]=='o'){
-               car.goStraight(-50);
-            }else{
-               car.stop();
-            }                                                                                                               
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+   char buf[256], outbuf[256];
+   FILE *devin = fdopen(&uart, "r");
+   FILE *devout = fdopen(&uart, "w");
+   while (1) {
+      memset(buf, 0, 256);
+      for( int i = 0; ; i++ ) {
+         char recv = fgetc(devin);
+         if(recv == '\n') {
+            printf("\r\n");
+            break;
+         }
+         buf[i] = fputc(recv, devout);
       }
+   printf("%s\n", buf);
+   RPC::call(buf, outbuf);
+   printf("%s\r\n", outbuf);
    }
 }
