@@ -13,13 +13,12 @@ BufferedSerial uart(D1,D0); //tx,rx
 BBCar car(pin5, pin6, servo_ticker);
 
 int angle;
-int count=0;
+int ping_cunt=0;
 
 int main() {
    float val;
    pc.set_baud(9600);
    uart.set_baud(9600);
-   int buf_index = 0;
    char buf[20];
    while(1){
       if(uart.readable()){                                                    
@@ -43,9 +42,9 @@ int main() {
             }else{
                car.stop();
             }
-            if(count<10) count++;
+            if(ping_cunt<10) ping_cunt++;
             else{
-               count = 0;
+               ping_cunt = 0;
                ping.output();
                ping = 0; wait_us(200);
                ping = 1; wait_us(5);
