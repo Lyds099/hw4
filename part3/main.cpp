@@ -15,6 +15,7 @@ BBCar car(pin5, pin6, servo_ticker);
 int angle;
 
 int main() {
+   float val;
    pc.set_baud(9600);
    uart.set_baud(9600);
    int buf_index = 0;
