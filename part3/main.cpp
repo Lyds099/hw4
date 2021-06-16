@@ -13,6 +13,7 @@ BufferedSerial uart(D1,D0); //tx,rx
 BBCar car(pin5, pin6, servo_ticker);
 
 int angle;
+int count=0;
 
 int main() {
    float val;
@@ -21,7 +22,7 @@ int main() {
    int buf_index = 0;
    char buf[20];
    while(1){
-      if(uart.readable()){                                                       
+      if(uart.readable()){                                                    
             char recv[1];
             uart.read(recv, sizeof(recv));                              
             //pc.write(recv, sizeof(recv));
@@ -42,20 +43,23 @@ int main() {
             }else{
                car.stop();
             }
-            ping.output();
-            ping = 0; wait_us(200);
-            ping = 1; wait_us(5);
-            ping = 0; wait_us(5);
-            ping.input();
-            while(ping.read() == 0);
-            t.start();
-            while(ping.read() == 1);
-            val = t.read();
-            sprintf(buf, "Ping = %lf\r\n", val*17700.4f);
-            pc.write(buf, sizeof(buf));
-            t.stop();
-            t.reset();                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            if(count<10) count++;
+            else{
+               count = 0;
+               ping.output();
+               ping = 0; wait_us(200);
+               ping = 1; wait_us(5);
+               ping = 0; wait_us(5);
+               ping.input();
+               while(ping.read() == 0);
+               t.start();
+               while(ping.read() == 1);
+               val = t.read();
+               sprintf(buf, "Ping = %lf\r\n", val*17700.4f);
+               pc.write(buf, sizeof(buf));
+               t.stop();
+               t.reset();                                                                                                              
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
       }
    }
 }
